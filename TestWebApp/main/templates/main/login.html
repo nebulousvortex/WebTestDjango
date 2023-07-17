@@ -1,0 +1,17 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block content %}
+    <h1>{{ title }}</h1>
+    <form method="post">
+        {% csrf_token %}
+        {% for f in form %}
+            <p>{{f}}</p>
+            <div class="form-error"> {{f.errors}}</div>
+        {% endfor %}
+        <button class="btn btn-success" type="submit"> Войти </button>
+    </form>
+{% endblock %}

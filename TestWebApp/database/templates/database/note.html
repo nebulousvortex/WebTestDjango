@@ -1,0 +1,13 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block content %}
+    <div class="full_note">
+        <h4> Описание: {{ note.anons }} </h4>
+        <p>{{ note.full_text|linebreaks }}</p>
+        <h3> {{ note.date }}  </h3>
+    </div>
+{% endblock %}

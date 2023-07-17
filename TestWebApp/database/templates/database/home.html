@@ -1,0 +1,34 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}
+    {{title}}
+{% endblock %}
+
+{% block content %}
+
+    <div class="features">
+        <h1> {{ title }} </h1>
+        {% if object_list %}
+            {% for elem in notes %}
+                <div class="alert alert-warning">
+                    <p style="margin-right: auto;"> Дата: {{elem.date}}</p>
+                    <h3> {{ elem.title }} </h3>
+                    <p> {{ elem.anons }} </p>
+                    <a href="{{ elem.get_absolute_url }}"><button class="btn btn-info"> Подробнее </button></a>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p> Обновлений нет! </p>
+        {% endif %}
+        <nav class="list-pages">
+            <ul>
+                {% for page in paginator.page_range %}
+                    <li class="page-num">
+                        <a href="?page={{ page }}"> {{ page }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </nav>
+
+    </div>
+{% endblock %}
