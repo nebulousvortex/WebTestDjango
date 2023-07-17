@@ -1,0 +1,2 @@
+# WebTestDjango
+Изучение Django
