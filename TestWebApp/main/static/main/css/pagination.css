@@ -1,0 +1,41 @@
+.btn-add {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 5px;
+}
+
+.list-pages {
+  text-align: center;
+}
+
+.list-pages ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.list-pages li {
+  display: inline-block;
+}
+
+.page-num a {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  background-color: #f5f5f5;
+  color: #333;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.7s ease;
+  border-radius: 5px;
+}
+
+.page-num a:hover {
+  background-color: #05e0f0;
+}
+
+.page-num a:hover i.fa-file-circle-plus {
+  color: #0e4e47 !important; /* Измените цвет при наведении на кнопку */
+}

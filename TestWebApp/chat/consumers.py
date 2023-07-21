@@ -1,11 +1,14 @@
+from django.contrib.auth import get_user_model
+from .models import Messages
 import json
 from channels.generic.websocket import WebsocketConsumer
 from asgiref.sync import async_to_sync
+from django.core.exceptions import ValidationError
 
+User = get_user_model()
 
 
 class ChatConsumer(WebsocketConsumer):
-
     def connect(self):
         self.room_group_name = 'test'
         async_to_sync(self.channel_layer.group_add)(
@@ -18,17 +21,23 @@ class ChatConsumer(WebsocketConsumer):
     def receive(self, text_data):
         text_data_json = json.loads(text_data)
         message = text_data_json['message']
-        user = self.scope.get('user')
-        print(user)
-        username = user.username if user and user.is_authenticated else 'Anonymous'
-        async_to_sync(self.channel_layer.group_send)(
-            self.room_group_name,
-            {
-                'type': 'chat_message',
-                'message': message,
-                'user': username
-            }
-        )
+        if message and not message.isspace():
+            user = self.scope.get('user')
+            username = user.username if user and user.is_authenticated else 'Anonymous'
+
+            # Сохранение сообщения в базу данных
+            Messages.objects.create(sender=user, target=None, message=message)
+
+            async_to_sync(self.channel_layer.group_send)(
+                self.room_group_name,
+                {
+                    'type': 'chat_message',
+                    'message': message,
+                    'user': username
+                }
+            )
+        else:
+            raise ValidationError('Empty message')
 
     def chat_message(self, event):
         message = event['message']

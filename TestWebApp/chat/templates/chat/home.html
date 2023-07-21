@@ -11,13 +11,19 @@
 
 <div class="chat_main">
     <div id="messages" class="messages">
-
+        {% if object_list %}
+            {% for elem in chat %}
+                    <p class="msg"><strong> {{elem.sender}}: </strong>{{elem.message}}</p>
+            {% endfor %}
+        {% endif %}
     </div>
 
     <form id="form_msg", class="form_msg">
         <input name="message" rows="3" class="message"></input>
     </form>
 </div>
+
+
 
 <script type="text/javascript">
     let url = `wss://${window.location.host}/ws/socket-server/`
