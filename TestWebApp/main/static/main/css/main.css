@@ -1,11 +1,22 @@
+:root {
+  --white-text: #FFFFFF;
+  --dividing-section: #333;
+}
+
+
 body {
-    background: cyan;
+    background: #424242;
+    color: var(--white-text);
 }
 
 header {
-  background-color: #333;
-  color: #fff;
+  background-color: var(--dividing-section);
+  color: var(--white-text);
   padding: 10px 20px;
+}
+
+a {
+  text-decoration: none;
 }
 
 nav ul {
@@ -23,7 +34,7 @@ nav li:first-child {
   margin-left: 0;
 }
 
-wrapper {
+.wrapper {
     display: flex;
     align-items: flex-start;
 }
@@ -33,7 +44,7 @@ aside {
     width: 250px;
     padding: 2.5%;
     height: 100vh;
-    border-right: 5px solid #4d4d4d;
+    border-right: 5px solid var(--dividing-section);;
 }
 
 aside img {
@@ -41,6 +52,7 @@ aside img {
     height: 80px;
     float: left;
 }
+
 
 main {
     width: 60%;
@@ -59,33 +71,4 @@ form {
     width: 450px;
     margin-top: 50px;
 }
-.list-pages {
-  text-align: center;
-}
 
-.list-pages ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-
-.list-pages li {
-  display: inline-block;
-}
-
-.page-num a {
-  display: inline-block;
-  width: 30px;
-  height: 30px;
-  line-height: 30px;
-  background-color: #f5f5f5;
-  border: 1px solid #ddd;
-  color: #333;
-  text-align: center;
-  text-decoration: none;
-  transition: background-color 0.3s ease;
-}
-
-.page-num a:hover {
-  background-color: #ddd;
-}

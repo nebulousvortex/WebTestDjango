@@ -22,6 +22,12 @@
         {% endif %}
         <nav class="list-pages">
             <ul>
+                {% if request.user.is_authenticated %}
+                    {% if request.user.username == "vortex" %} 
+                        <li class="page-num"><a href="{% url 'create_note' %}"><i class="fa-solid fa-file-circle-plus" style="color: #05e0f0;"></i></a></li>
+                    {% endif %}
+                {% endif %}
+                
                 {% for page in paginator.page_range %}
                     <li class="page-num">
                         <a href="?page={{ page }}"> {{ page }}</a>

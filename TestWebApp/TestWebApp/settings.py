@@ -14,7 +14,7 @@ SECRET_KEY = 'django-insecure-on38#m9a^@%lhlwo1q$@33!&u(0v6!17c#(sunz@x+^wz49m)l
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*', '192.168.3.105']
+ALLOWED_HOSTS = ['*', '192.168.3.105', '95.106.91.42', 'nebulousvortex.ru']
 
 # Application definition
 
@@ -42,6 +42,16 @@ CHANNEL_LAYERS = {
     }
 }
 
+'''
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            'hosts': [('localhost', 6379)],
+        },
+    },
+}
+'''
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
