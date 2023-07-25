@@ -25,6 +25,8 @@ INSTALLED_APPS = [
     'main',
     'database',
     'chat',
+    'game',
+    'riot_api',
 
     'django.contrib.admin',
     'django.contrib.auth',
