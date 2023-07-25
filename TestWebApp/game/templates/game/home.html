@@ -1,0 +1,75 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+
+{% block content %}
+    <svg id="gameBoard" width="500" height="500" style="background-color:#4F4F4F "></svg>
+
+    <script>
+
+    // Подключение к WebSocket серверу
+
+    let moving;
+
+    let url = `wss://${window.location.host}/ws/game-socket/`
+    const gameSocket = new WebSocket(url)
+
+    gameSocket.onmessage = function(event) {
+        const data = JSON.parse(event.data);
+        if(data.type === 'create') createObject(data.data)
+        if(data.type === 'movement') makeMovement(data.data)
+    }
+    
+    gameSocket.onopen = function(event) {
+        // Отправка события движения круга на сервер
+        create = {'type': 'create'};
+        gameSocket.send(JSON.stringify(create));
+    }
+
+    gameSocket.onclose = function(event) {
+        // Отправка события движения круга на сервер
+        deleter = {'type': 'delete'};
+        gameSocket.send(JSON.stringify(deleter));
+    }
+
+    function makeMovement(data) {
+        const rect = document.getElementById(data.player);
+        rect.setAttribute('cx', data.x);
+        rect.setAttribute('cy', data.y);
+    }
+
+    function createObject(data){
+        const svg = document.getElementById('gameBoard');
+        const rect = document.createElementNS('http://www.w3.org/2000/svg', data.type);
+        rect.setAttribute('id', data.player);
+        rect.setAttribute('fill', 'green');
+        rect.setAttribute('cx', data.x);
+        rect.setAttribute('cy', data.y);
+        rect.setAttribute('r', '20');  
+
+        svg.appendChild(rect);
+    }
+
+
+    var intervalId;
+
+    document.addEventListener('keydown', function(event) {
+        if (event.keyCode == 37) {
+            moving = {'type': 'move', 'direction': event.keyCode};
+            gameSocket.send(JSON.stringify(moving));
+
+            intervalId = setInterval(function() {}, 50);
+        }
+        if (event.keyCode == 39) {
+            moving = {'type': 'move', 'direction': event.keyCode};
+            gameSocket.send(JSON.stringify(moving));
+
+            intervalId = setInterval(function() {}, 50);
+        };
+    })
+
+    </script>
+{% endblock %}

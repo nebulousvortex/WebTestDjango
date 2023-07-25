@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'main',
     'database',
     'chat',
+    'game',
 
     'django.contrib.admin',
     'django.contrib.auth',
