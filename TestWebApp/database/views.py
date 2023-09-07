@@ -7,7 +7,7 @@ from .models import Notes
 from .forms import NoteForm
 
 
-class UpdateHome(LoginRequiredMixin, ListView):
+class UpdateHome(ListView): #LoginRequiredMixin
     paginate_by = 3
     model = Notes
     template_name = 'database/home.html'
