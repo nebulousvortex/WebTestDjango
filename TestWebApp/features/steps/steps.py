@@ -1,4 +1,5 @@
 from behave import given, when, then
+from behave import *
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -7,6 +8,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 @given('I open the browser')
 def open_browser(context):
     context.driver = webdriver.Chrome()
+
 
 @when('I navigate to the home page')
 def navigate_to_home_page(context):
@@ -37,26 +39,26 @@ def get_menu(context):
 def navigate_to_admin_page(context):
     context.driver.get("http://127.0.0.1:8000/admin/")
 
-@when(u'I enter my login and password')
-def login(context):
+@when(u'I enter my login "{login}" and password "{passw}"')
+def login(context, login, passw):
     wait = WebDriverWait(context.driver, 10)
     login_field = wait.until(EC.visibility_of_element_located((By.ID, "id_username")))
-    login_field.send_keys("vortex")
+    login_field.send_keys(login)
 
     password_field = wait.until(EC.visibility_of_element_located((By.ID, "id_password")))
-    password_field.send_keys("spaceofvortex11")
+    password_field.send_keys(passw)
 
     submit_button = wait.until(EC.visibility_of_element_located((By.XPATH, '//*[@id="login-form"]/div[3]/input')))
     submit_button.click()
 
-@when(u'I enter wrong login and password')
-def login(context):
+@when('I enter wrong login "{wrong_login}" or password "{wrong_pass}"')
+def login(context, wrong_login, wrong_pass):
     wait = WebDriverWait(context.driver, 10)
     login_field = wait.until(EC.visibility_of_element_located((By.ID, "id_username")))
-    login_field.send_keys("NO_vortex")
+    login_field.send_keys(wrong_login)
 
     password_field = wait.until(EC.visibility_of_element_located((By.ID, "id_password")))
-    password_field.send_keys("spaceofvortex11")
+    password_field.send_keys(wrong_pass)
 
     submit_button = wait.until(EC.visibility_of_element_located((By.XPATH, '//*[@id="login-form"]/div[3]/input')))
     submit_button.click()
