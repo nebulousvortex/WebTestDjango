@@ -14,6 +14,10 @@ def open_browser(context):
 def navigate_to_home_page(context):
     context.driver.get("http://127.0.0.1:8000/")
 
+@when('I navigate to login page')
+def navigate_to_home_page(context):
+    context.driver.get("http://127.0.0.1:8000/login/")
+
 @then('I should see a non-empty title')
 def check_title(context):
     wait = WebDriverWait(context.driver, 10)
@@ -39,7 +43,7 @@ def get_menu(context):
 def navigate_to_admin_page(context):
     context.driver.get("http://127.0.0.1:8000/admin/")
 
-@when(u'I enter my login "{login}" and password "{passw}"')
+@when(u'I enter my login {login} and password {passw}')
 def login(context, login, passw):
     wait = WebDriverWait(context.driver, 10)
     login_field = wait.until(EC.visibility_of_element_located((By.ID, "id_username")))
@@ -51,7 +55,7 @@ def login(context, login, passw):
     submit_button = wait.until(EC.visibility_of_element_located((By.XPATH, '//*[@id="login-form"]/div[3]/input')))
     submit_button.click()
 
-@when('I enter wrong login "{wrong_login}" or password "{wrong_pass}"')
+@when('I enter wrong login {wrong_login} or password {wrong_pass}')
 def login(context, wrong_login, wrong_pass):
     wait = WebDriverWait(context.driver, 10)
     login_field = wait.until(EC.visibility_of_element_located((By.ID, "id_username")))
@@ -86,6 +90,10 @@ def get_menu(context):
 def navigate_to_admin_page(context):
     context.driver.get("http://127.0.0.1:8000/database/")
 
+@then(u'I navigate to add news panel')
+def navigate_to_admin_page(context):
+    context.driver.get("http://127.0.0.1:8000/database/create_note")
+
 @then(u'I should see the news')
 def get_menu(context):
     expected_links = {
@@ -104,3 +112,33 @@ def get_menu(context):
             assert new_link == expected_links[new_link]
         else:
             print(f"Ожидаемая ссылка {new_link} не найдена в словаре")
+
+@when(u'I enter admin login {login} and password {passw}')
+def login(context, login, passw):
+    wait = WebDriverWait(context.driver, 10)
+    login_field = wait.until(EC.visibility_of_element_located((By.ID, "id_username")))
+    login_field.send_keys(login)
+
+    password_field = wait.until(EC.visibility_of_element_located((By.ID, "id_password")))
+    password_field.send_keys(passw)
+
+    submit_button = wait.until(EC.visibility_of_element_located((By.XPATH, '/html/body/div/main/form/button')))
+    submit_button.click()
+
+@then(u'I try to add new news {title} {anons} {full_text}')
+def login(context, title, anons, full_text):
+    wait = WebDriverWait(context.driver, 10)
+
+    login_field = wait.until(EC.visibility_of_element_located((By.ID, "id_title")))
+    login_field.send_keys(title)
+
+    password_field = wait.until(EC.visibility_of_element_located((By.ID, "id_anons")))
+    password_field.send_keys(anons)
+
+    password_field = wait.until(EC.visibility_of_element_located((By.ID, "id_full_text")))
+    password_field.send_keys(full_text)
+
+    assert title != "" and anons !="" and full_text != ""
+
+    # submit_button = wait.until(EC.visibility_of_element_located((By.XPATH, '/html/body/div/main/div/form/button')))
+    # submit_button.click()
