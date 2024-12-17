@@ -8,7 +8,7 @@ urlpatterns = [
     path('', include('main.urls')),
     path('database/', include('database.urls')),
     path('chat/', include('chat.urls')),
-    path('game/', include('game.urls')),
-    path('riot_api/', include('riot_api.urls')),
+    #path('game/', include('game.urls')),
+    #path('riot_api/', include('riot_api.urls')),
 ]
 
